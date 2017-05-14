@@ -11,8 +11,7 @@ config :chat_app, ChatApp.Endpoint,
   debug_errors: true,
   code_reloader: true,
   check_origin: false,
-  watchers: []
-
+  watchers: [yarn: ["run", "watch"]]
 
 # Watch static and templates for browser reloading.
 config :chat_app, ChatApp.Endpoint,
