@@ -1,0 +1,13 @@
+<header class="header">
+  <nav class="nav" role="navigation">
+    <div class="nav-left">
+      <a class="nav-item">
+        <img src="<%= static_path(@conn, "/images/phoenix.png") %>" alt="Phoenix's logo">
+      </a>
+    </div>
+
+    <div class="nav-right">
+      <a class="nav-item" href="http://www.phoenixframework.org/docs">Get Started</a>
+    </div>
+  </nav>
+</header>
