@@ -1,13 +1,23 @@
-<h2>Show chat room</h2>
+<h1 class="title has-text-centered"><%= @chat_room.name %></h1>
 
-<ul>
-
-  <li>
-    <strong>Name:</strong>
-    <%= @chat_room.name %>
+<ul style="margin: 1rem;">
+<%= for message <- @messages do %>
+  <li class="message">
+    <div class="message-body"><%= message.content %><div>
   </li>
-
+<% end %>
 </ul>
 
-<%= link "Edit", to: chat_room_path(@conn, :edit, @chat_room) %>
-<%= link "Back", to: chat_room_path(@conn, :index) %>
+<%= form_for @changeset, chat_room_post_message_path(@conn, :post_message, @chat_room), fn f -> %>
+<div class="field has-addons" style="margin: 1rem;">
+  <p class="control is-expanded">
+    <%= text_input f, :content, class: "input" %>
+  </p>
+  <p class="control">
+    <%= submit "Send", class: "button is-info" %>
+  </p>
+</div>
+<% end %>
+
+<%= link "Edit", to: chat_room_path(@conn, :edit, @chat_room), class: "button is-info" %>
+<%= link "Back", to: chat_room_path(@conn, :index), class: "button" %>

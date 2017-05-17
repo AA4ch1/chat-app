@@ -2,6 +2,9 @@ defmodule ChatApp.ChatRoomController do
   use ChatApp.Web, :controller
 
   alias ChatApp.ChatRoom
+  alias ChatApp.Message
+
+  plug :scrub_params, "message" when action in [:post_message]
 
   def index(conn, _params) do
     chat_rooms = Repo.all(ChatRoom)
@@ -28,7 +31,12 @@ defmodule ChatApp.ChatRoomController do
 
   def show(conn, %{"id" => id}) do
     chat_room = Repo.get!(ChatRoom, id)
-    render(conn, "show.html", chat_room: chat_room)
+    messages = Message.otl(id)
+    changeset = Message.changeset(%Message{})
+
+    render(conn, "show.html", chat_room: chat_room,
+                              messages: messages,
+                              changeset: changeset)
   end
 
   def edit(conn, %{"id" => id}) do
@@ -61,5 +69,22 @@ defmodule ChatApp.ChatRoomController do
     conn
     |> put_flash(:info, "Chat room deleted successfully.")
     |> redirect(to: chat_room_path(conn, :index))
+  end
+
+  def post_message(conn, %{"message" => message_params, "chat_room_id" => chat_room_id}) do
+    changeset = Message.changeset(%Message{}, Map.put(message_params, "chat_room_id", chat_room_id))
+    chat_room = Repo.get!(ChatRoom, chat_room_id)
+    messages = Message.otl(chat_room_id)
+
+    if changeset.valid? do
+      Repo.insert!(changeset)
+
+      conn
+      |> redirect(to: chat_room_path(conn, :show, chat_room))
+    else
+      render(conn, "show.html", chat_room: chat_room,
+                                messages: messages,
+                                changeset: changeset)
+    end
   end
 end
