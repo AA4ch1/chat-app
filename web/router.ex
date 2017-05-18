@@ -18,7 +18,7 @@ defmodule ChatApp.Router do
 
     get "/", PageController, :index
     resources "/chat_rooms", ChatRoomController do
-      post "/message", ChatRoomController, :post_message, as: :post_message
+      post "/messages", ChatRoomController, :create_message, as: :create_message
     end
   end
 

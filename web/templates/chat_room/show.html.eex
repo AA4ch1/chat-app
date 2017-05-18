@@ -8,7 +8,7 @@
 <% end %>
 </ul>
 
-<%= form_for @changeset, chat_room_post_message_path(@conn, :post_message, @chat_room), fn f -> %>
+<%= form_for @changeset, chat_room_create_message_path(@conn, :create_message, @chat_room), fn f -> %>
 <div class="field has-addons" style="margin: 1rem;">
   <p class="control is-expanded">
     <%= text_input f, :content, class: "input" %>
