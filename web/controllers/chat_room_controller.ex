@@ -4,7 +4,7 @@ defmodule ChatApp.ChatRoomController do
   alias ChatApp.ChatRoom
   alias ChatApp.Message
 
-  plug :scrub_params, "message" when action in [:post_message]
+  plug :scrub_params, "message" when action in [:create_message]
 
   def index(conn, _params) do
     chat_rooms = Repo.all(ChatRoom)
