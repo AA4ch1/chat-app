@@ -21,10 +21,7 @@ defmodule ChatApp.Message do
     |> validate_required([:content, :chat_room_id])
   end
 
-  def otl(chat_room_id) do
-    query = from m in ChatApp.Message, where: m.chat_room_id == ^chat_room_id,
-                                       order_by: [asc: m.inserted_at]
-
-    Repo.all(query)
+  def otl(query) do
+    from m in ^query, order_by: [asc: m.inserted_at]
   end
 end
