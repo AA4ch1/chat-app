@@ -22,6 +22,6 @@ defmodule ChatApp.Message do
   end
 
   def otl(query) do
-    from m in ^query, order_by: [asc: m.inserted_at]
+    from m in query, order_by: [asc: m.inserted_at]
   end
 end
