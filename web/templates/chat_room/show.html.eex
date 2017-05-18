@@ -1,23 +1,27 @@
-<h1 class="title has-text-centered"><%= @chat_room.name %></h1>
+<%= render ChatApp.SharedView, "title.html", title: @chat_room.name %>
 
-<ul style="margin: 1rem;">
+<ul>
 <%= for message <- @messages do %>
-  <li class="message">
-    <div class="message-body"><%= message.content %><div>
-  </li>
+  <li><%= message.content %></li>
 <% end %>
 </ul>
 
 <%= form_for @changeset, chat_room_create_message_path(@conn, :create_message, @chat_room), fn f -> %>
-<div class="field has-addons" style="margin: 1rem;">
+<div class="field has-addons">
   <p class="control is-expanded">
     <%= text_input f, :content, class: "input" %>
   </p>
   <p class="control">
-    <%= submit "Send", class: "button is-info" %>
+    <%= submit "Send", class: "button is-primary" %>
+  </p>
+</div>
+
+<div class="field is-grouped">
+  <p class="control">
+    <%= link "Edit", to: chat_room_path(@conn, :edit, @chat_room), class: "button is-info" %>
+  </p>
+  <p class="control">
+    <%= link "Back", to: chat_room_path(@conn, :index), class: "button is-link" %>
   </p>
 </div>
 <% end %>
-
-<%= link "Edit", to: chat_room_path(@conn, :edit, @chat_room), class: "button is-info" %>
-<%= link "Back", to: chat_room_path(@conn, :index), class: "button" %>

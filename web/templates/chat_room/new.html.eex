@@ -1,6 +1,5 @@
-<h2>New chat room</h2>
+<%= render ChatApp.SharedView, "title.html", title: "New chat room" %>
 
 <%= render "form.html", changeset: @changeset,
+                        back_to: chat_room_path(@conn, :index),
                         action: chat_room_path(@conn, :create) %>
-
-<%= link "Back", to: chat_room_path(@conn, :index) %>

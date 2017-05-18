@@ -7,7 +7,7 @@
     </div>
 
     <div class="nav-right">
-      <a class="nav-item" href="http://www.phoenixframework.org/docs">Get Started</a>
+      <%= link("Chat Rooms", to: chat_room_path(@conn, :index), class: "nav-item") %>
     </div>
   </nav>
 </header>

@@ -1,4 +1,4 @@
-<h2>Listing chat rooms</h2>
+<%= render ChatApp.SharedView, "title.html", title: "Listing chat rooms" %>
 
 <table class="table">
   <thead>
@@ -13,14 +13,20 @@
     <tr>
       <td><%= chat_room.name %></td>
 
-      <td class="text-right">
-        <%= link "Show", to: chat_room_path(@conn, :show, chat_room), class: "btn btn-default btn-xs" %>
-        <%= link "Edit", to: chat_room_path(@conn, :edit, chat_room), class: "btn btn-default btn-xs" %>
-        <%= link "Delete", to: chat_room_path(@conn, :delete, chat_room), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+      <td>
+        <div class="field is-grouped is-pulled-right">
+          <p class="control">
+            <%= link "Show", to: chat_room_path(@conn, :show, chat_room), class: "button" %>
+          </p>
+          <p class="control">
+            <%= link "Edit", to: chat_room_path(@conn, :edit, chat_room), class: "button" %>
+          </p>
+          <%= link "Delete", to: chat_room_path(@conn, :delete, chat_room), method: :delete, data: [confirm: "Are you sure?"], class: "button is-danger" %>
+        </div>
       </td>
     </tr>
 <% end %>
   </tbody>
 </table>
 
-<%= link "New chat room", to: chat_room_path(@conn, :new) %>
+<%= link "New chat room", to: chat_room_path(@conn, :new), class: "button" %>
