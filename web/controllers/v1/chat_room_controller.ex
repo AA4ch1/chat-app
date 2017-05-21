@@ -1,11 +1,16 @@
 defmodule ChatApp.V1.ChatRoomController do
   use ChatApp.Web, :controller
 
+  import Ecto.Query, only: [where: 2]
+
   alias ChatApp.ChatRoom
   alias ChatApp.Message
 
   def index_message(conn, %{"chat_room_id" => chat_room_id}) do
-    messages = Message.otl(chat_room_id)
+    messages = Message
+               |> where(chat_room_id: ^chat_room_id)
+               |> Message.otl
+               |> Repo.all
 
     render conn, ChatApp.V1.MessageView, "index.json", messages: messages
   end
